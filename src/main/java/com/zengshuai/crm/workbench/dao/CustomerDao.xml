@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zengshuai.crm.workbench.dao.CustomerDao">
+	
+  	<insert id="createCustomer">
+        insert into tbl_customer (
+        id,
+        owner,
+        name,
+        website,
+        phone,
+        createBy,
+        createTime,
+        contactSummary,
+        nextContactTime,
+        description,
+        address
+        )values(
+        #{id},
+        #{owner},
+        #{name},
+        #{website},
+        #{phone},
+        #{createBy},
+        #{createTime},
+        #{contactSummary},
+        #{nextContactTime},
+        #{description},
+        #{address}
+        )
+    </insert>
+    <select id="checkByName" resultType="Customer">
+        select * from tbl_customer where name=#{company}
+    </select>
+    <select id="getCustomerName" parameterType="String" resultType="String">
+            select name from tbl_customer where name like '%' #{name} '%'
+    </select>
+    <select id="findCustomerByName" resultType="Customer">
+        select * from tbl_customer where name=#{name}
+    </select>
+    <insert id="saveCustomer">
+        insert into tbl_customer (
+        id,
+        owner,
+        name,
+        website,
+        phone,
+        createBy,
+        createTime,
+        editBy,
+        editTime,
+        contactSummary,
+        nextContactTime,
+        description,
+        address
+        )values(
+        #{id},
+        #{owner},
+        #{name},
+        #{website},
+        #{phone},
+        #{createBy},
+        #{createTime},
+        #{editBy},
+        #{editTime},
+        #{contactSummary},
+        #{nextContactTime},
+        #{description},
+        #{address}
+        )
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

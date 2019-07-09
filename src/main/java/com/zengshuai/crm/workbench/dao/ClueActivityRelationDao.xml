@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zengshuai.crm.workbench.dao.ClueActivityRelationDao">
+	
+	<insert id="insertIntoBundTable">
+        insert into tbl_clue_activity_relation
+        (id,clueId,activityId)values(#{id},#{clueId},#{activityId})
+    </insert>
+    <delete id="deleteRelation">
+        delete from tbl_clue_activity_relation where activityId=#{activityId} and clueId=#{clueId}
+    </delete>
+  	<select id="searchActivityIdByClueId" resultType="String">
+        select activityId from tbl_clue_activity_relation where clueId=#{clueId}
+    </select>
+    <delete id="deleteRelationByClueId">
+        delete from tbl_clue_activity_relation where clueId=#{clueId}
+    </delete>
+    <select id="toBeDeletedRelationCount" resultType="int">
+        select count(*) from tbl_clue_activity_relation where clueId=#{clueId}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

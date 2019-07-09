@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zengshuai.crm.workbench.dao.ClueDao">
+
+    <select id="findUsers" resultType="User">
+        select * from tbl_user
+    </select>
+    <select id="getTotalRecord" resultType="int">
+        select count(*) from tbl_clue as c join tbl_user as u on u.id=c.owner
+        <where>
+            <if test="fullname!=null and fullname!=''">
+                fullname like '%' #{fullname} '%'
+            </if>
+            <if test="company!=null and company!=''">
+                and company like '%' #{company} '%'
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like '%' #{phone} '%'
+            </if>
+            <if test="source!=null and source!=''">
+                and source=#{source}
+            </if>
+            <if test="owner!=null and owner!=''">
+                and u.name like '%' #{owner} '%'
+            </if>
+            <if test="mphone!=null and mphone!=''">
+                and mphone like '%' #{mphone} '%'
+            </if>
+            <if test="state!=null and state!=''">
+                and state=#{state}
+            </if>
+        </where>
+    </select>
+  	<select id="getClueList" resultType="Clue">
+        select
+        c.id,
+        c.fullname,
+        c.appellation,
+        u.name as owner,
+        c.company,
+        c.job,
+        c.email,
+        c.phone,
+        c.website,
+        c.mphone,
+        c.state,
+        c.source,
+        c.createBy,
+        c.createTime,
+        c.editBy,
+        c.editTime,
+        c.description,
+        c.contactSummary,
+        c.nextContactTime,
+        c.address
+        from tbl_clue as c join tbl_user as u on c.owner=u.id
+        <where>
+            <if test="fullname!=null and fullname!=''">
+                fullname like '%' #{fullname} '%'
+            </if>
+            <if test="company!=null and company!=''">
+                and company like '%' #{company} '%'
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like '%' #{phone} '%'
+            </if>
+            <if test="source!=null and source!=''">
+                and source=#{source}
+            </if>
+            <if test="owner!=null and owner!=''">
+                and u.name like '%' #{owner} '%'
+            </if>
+            <if test="mphone!=null and mphone!=''">
+                and mphone like '%' #{mphone} '%'
+            </if>
+            <if test="state!=null and state!=''">
+                and state=#{state}
+            </if>
+        </where>
+        order by createTime desc
+        limit #{skipPage},#{pageSize}
+    </select>
+    <insert id="saveClue">
+        insert into tbl_clue (
+        id,
+        fullname,
+        appellation,
+        owner,
+        company,
+        job,
+        email,
+        phone,
+        website,
+        mphone,
+        state,
+        source,
+        createBy,
+        createTime,
+        description,
+        contactSummary,
+        nextContactTime,
+        address
+        )values(
+        #{id},
+        #{fullname},
+        #{appellation},
+        #{owner},
+        #{company},
+        #{job},
+        #{email},
+        #{phone},
+        #{website},
+        #{mphone},
+        #{state},
+        #{source},
+        #{createBy},
+        #{createTime},
+        #{description},
+        #{contactSummary},
+        #{nextContactTime},
+        #{address}
+        )
+    </insert>
+    <select id="getClueById" parameterType="String" resultType="Clue">
+        select
+        c.id,
+        c.fullname,
+        c.appellation,
+        u.name as owner,
+        c.company,
+        c.job,
+        c.email,
+        c.phone,
+        c.website,
+        c.mphone,
+        c.state,
+        c.source,
+        us.name as createBy,
+        c.createTime,
+        c.editBy,
+        c.editTime,
+        c.description,
+        c.contactSummary,
+        c.nextContactTime,
+        c.address
+        from tbl_clue as c join tbl_user as u on u.id=c.owner join tbl_user as us on c.createBy=us.id
+        where c.id=#{id}
+    </select>
+    <select id="findActivities" resultType="Activity">
+        select
+        a.id,
+        u.name as owner,
+        a.name,
+        a.startDate,
+        a.endDate,
+        a.cost,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy
+        from tbl_activity as a join tbl_user as u on u.id=a.owner where a.id in
+        (select activityId from tbl_clue_activity_relation where clueId=#{clueId})
+    </select>
+
+    <select id="searchActivityByName" resultType="Activity">
+        select
+        a.id,
+        u.name as owner,
+        a.name,
+        a.startDate,
+        a.endDate,
+        a.cost,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy
+        from tbl_activity as a join tbl_user as u on u.id=a.owner
+        where a.name like '%' #{aname} '%' and
+        a.id not in
+        (select activityId from tbl_clue_activity_relation where clueId=#{clueId})
+    </select>
+    <select id="searchActivityOnlyByName" resultType="Activity">
+        select
+        a.id,
+        u.name as owner,
+        a.name,
+        a.startDate,
+        a.endDate,
+        a.cost,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy
+        from tbl_activity as a join tbl_user as u on u.id=a.owner
+        where a.name like '%' #{aname} '%'
+    </select>
+    <select id="findClueById" parameterType="String" resultType="Clue">
+        select * from tbl_clue where id=#{id}
+    </select>
+    <delete id="deleteClueById">
+        delete from tbl_clue where id=#{id};
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

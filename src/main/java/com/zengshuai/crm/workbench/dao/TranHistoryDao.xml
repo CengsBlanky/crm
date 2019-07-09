@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zengshuai.crm.workbench.dao.TranHistoryDao">
+
+    <insert id="createHistory">
+        insert into tbl_tran_history (
+        id,
+        stage,
+        money,
+        expectedDate,
+        createTime,
+        createBy,
+        tranId
+        )values(
+        #{id},
+        #{stage},
+        #{money},
+        #{expectedDate},
+        #{createTime},
+        #{createBy},
+        #{tranId}
+        )
+    </insert>
+  	<select id="selectHistoriesByTranId" resultType="TranHistory">
+        select
+        t.id,
+        t.stage,
+        t.money,
+        t.expectedDate,
+        t.createTime,
+        u.name as createBy,
+        t.tranId
+        from tbl_tran_history as t left join tbl_user as u on u.id=t.createBy
+        where t.tranId=#{tranId}
+        order by t.createTime desc
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

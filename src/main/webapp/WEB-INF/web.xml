@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>crm</display-name>
+
+
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!--登陆过滤器，防止恶意登录-->
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.zengshuai.crm.web.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+
+  <!--字符集过滤器-->
+  <filter>
+    <filter-name>CharsetFilter</filter-name>
+    <filter-class>com.zengshuai.crm.web.filter.CharsetFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharsetFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+
+  <!--用户控制器-->
+  <servlet>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>com.zengshuai.crm.settings.web.controller.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/settings/user/login.do</url-pattern>
+  </servlet-mapping>
+
+  <!--市场活动控制器-->
+  <servlet>
+    <servlet-name>ActivityController</servlet-name>
+    <servlet-class>com.zengshuai.crm.workbench.web.controller.ActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ActivityController</servlet-name>
+    <url-pattern>/workbench/activity/findUsers.do</url-pattern>
+    <url-pattern>/workbench/activity/saveActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/showActivityList.do</url-pattern>
+    <url-pattern>/workbench/activity/deleteActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/findUsersAndActivities.do</url-pattern>
+    <url-pattern>/workbench/activity/updateActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/detailDisplay.do</url-pattern>
+    <url-pattern>/workbench/activity/activityRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/saveRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/deleteRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/editRemark.do</url-pattern>
+  </servlet-mapping>
+
+  <!--线索控制器-->
+  <servlet>
+    <servlet-name>ClueController</servlet-name>
+    <servlet-class>com.zengshuai.crm.workbench.web.controller.ClueController</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>ClueController</servlet-name>
+    <url-pattern>/workbench/clue/findUsers.do</url-pattern>
+    <url-pattern>/workbench/clue/disClueList.do</url-pattern>
+    <url-pattern>/workbench/clue/saveClue.do</url-pattern>
+    <url-pattern>/workbench/clue/detail.do</url-pattern>
+    <url-pattern>/workbench/clue/findActivities.do</url-pattern>
+    <url-pattern>/workbench/clue/searchActivityByName.do</url-pattern>
+    <url-pattern>/workbench/clue/bundActivity.do</url-pattern>
+    <url-pattern>/workbench/clue/searchActivityOnlyByName.do</url-pattern>
+    <url-pattern>/workbench/clue/deleteRelation.do</url-pattern>
+    <url-pattern>/workbench/clue/convert.do</url-pattern>
+  </servlet-mapping>
+
+  <!--交易控制器-->
+  <servlet>
+    <servlet-name>TransactionController</servlet-name>
+    <servlet-class>com.zengshuai.crm.workbench.web.controller.TransactionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransactionController</servlet-name>
+    <url-pattern>/workbench/transaction/showTranList.do</url-pattern>
+    <url-pattern>/workbench/transaction/findOwner.do</url-pattern>
+    <url-pattern>/workbench/transaction/getCustomerName.do</url-pattern>
+    <url-pattern>/workbench/transaction/findActivityByName.do</url-pattern>
+    <url-pattern>/workbench/transaction/searchContactByName.do</url-pattern>
+    <url-pattern>/workbench/transaction/saveTran.do</url-pattern>
+    <url-pattern>/workbench/transaction/detail.do</url-pattern>
+    <url-pattern>/workbench/transaction/findHistoryByTranId.do</url-pattern>
+    <url-pattern>/workbench/transaction/changeStage.do</url-pattern>
+    <url-pattern>/workbench/chart/transaction/chartData.do</url-pattern>
+  </servlet-mapping>
+
+
+
+
+
+
+  <!--上下文作用域注册-->
+  <listener>
+    <listener-class>com.zengshuai.crm.web.listener.SysInitListener</listener-class>
+  </listener>
+
+
+</web-app>
